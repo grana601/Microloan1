@@ -8,7 +8,6 @@ public class loandbcontext : DbContext
     public loandbcontext(DbContextOptions<loandbcontext> options) : base(options) { }
 
     public DbSet<loans> loans { get; set; } = null!;
-    public DbSet<loanapplication> loanapplication { get; set; } = null!;
     public DbSet<loanagreement> loanagreement { get; set; } = null!;
     public DbSet<loanaction> loanaction { get; set; } = null!;
     public DbSet<loaninterest> loaninterest { get; set; } = null!;
@@ -19,7 +18,6 @@ public class loandbcontext : DbContext
         base.OnModelCreating(builder);
 
         builder.Entity<loans>().ToTable("loans");
-        builder.Entity<loanapplication>().ToTable("loanapplication");
         builder.Entity<loanagreement>().ToTable("loanagreement");
         builder.Entity<loanaction>().ToTable("loanaction");
         builder.Entity<loaninterest>().ToTable("loaninterest");
