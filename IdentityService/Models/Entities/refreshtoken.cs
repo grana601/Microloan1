@@ -1,9 +1,11 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace IdentityService.Models.Entities
 {
     public class refreshtoken
     {
+        [Key]
         public Guid id { get; set; }
         public string userid { get; set; } = null!;
         public string token { get; set; } = null!;

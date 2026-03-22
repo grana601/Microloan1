@@ -1,13 +1,15 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace CustomerService.Models.Entities
 {
     public class customeraddress
     {
+        [Key]
         public Guid id { get; set; }
         public Guid customerid { get; set; }
         public string line1 { get; set; } = null!;
-        public string line2 { get; set; } = null!;
+        public string? line2 { get; set; }
         public string city { get; set; } = null!;
         public string state { get; set; } = null!;
         public string country { get; set; } = null!;

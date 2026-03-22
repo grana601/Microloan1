@@ -8,20 +8,20 @@ namespace LoanService.Services;
 
 public class LoanAppService : ILoanService
 {
-    private readonly LoanServiceDbContext _dbContext;
+    private readonly loandbcontext _dbContext;
 
-    public LoanAppService(LoanServiceDbContext dbContext)
+    public LoanAppService(loandbcontext dbContext)
     {
         _dbContext = dbContext;
     }
 
     public async Task<Guid> CreateLoanAsync(CreateLoanDto dto)
     {
-        var loan = new Loan
+        var loan = new loans
         {
-            Id = Guid.NewGuid(),
-            CustomerId = dto.CustomerId,
-            Amount = dto.Amount,
+            id = Guid.NewGuid(),
+            customerid = dto.CustomerId,
+            amount = dto.Amount,
             InterestRate = dto.InterestRate,
             Status = "Pending",
             CreatedAt = DateTime.UtcNow
