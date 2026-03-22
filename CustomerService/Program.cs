@@ -11,7 +11,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // Configure Entity Framework Core with PostgreSQL
-builder.Services.AddDbContext<CustomerServiceDbContext>(options =>
+builder.Services.AddDbContext<customerdbcontext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Register DI
