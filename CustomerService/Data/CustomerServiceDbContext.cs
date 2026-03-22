@@ -9,5 +9,5 @@ public class CustomerServiceDbContext : DbContext
     {
     }
 
-    public DbSet<Customer> Customers { set; get; }
+    public DbSet<Customer> Customers { set; get; } = null!;
 }
