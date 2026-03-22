@@ -15,11 +15,5 @@ public class NotificationController : ControllerBase
         _notificationService = notificationService;
     }
 
-    [HttpPost]
-    public async Task<IActionResult> CreateNotification([FromBody] CreateNotificationDto dto)
-    {
-        var id = await _notificationService.CreateNotificationAsync(dto);
-        // We return OK since the prompt only requested POST for controllers, but we still support GetById internally.
-        return Ok(new { Id = id });
-    }
+   
 }
