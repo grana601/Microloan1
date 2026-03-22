@@ -1,0 +1,13 @@
+﻿C:\Office\GitPersonal\Microloan\MicroloanDev\Microloan1\IdentityService\Data\ApplicationDbContext.cs(2,37): error CS0234: The type or namespace name 'EntityFrameworkCore' does not exist in the namespace 'Microsoft.AspNetCore.Identity' (are you missing an assembly reference?) [C:\Office\GitPersonal\Microloan\MicroloanDev\Microloan1\IdentityService\IdentityService.csproj]
+C:\Office\GitPersonal\Microloan\MicroloanDev\Microloan1\IdentityService\Program.cs(6,43): error CS0234: The type or namespace name 'JwtBearer' does not exist in the namespace 'Microsoft.AspNetCore.Authentication' (are you missing an assembly reference?) [C:\Office\GitPersonal\Microloan\MicroloanDev\Microloan1\IdentityService\IdentityService.csproj]
+C:\Office\GitPersonal\Microloan\MicroloanDev\Microloan1\IdentityService\Program.cs(9,17): error CS0234: The type or namespace name 'IdentityModel' does not exist in the namespace 'Microsoft' (are you missing an assembly reference?) [C:\Office\GitPersonal\Microloan\MicroloanDev\Microloan1\IdentityService\IdentityService.csproj]
+C:\Office\GitPersonal\Microloan\MicroloanDev\Microloan1\IdentityService\Services\AuthService.cs(3,14): error CS0234: The type or namespace name 'IdentityModel' does not exist in the namespace 'System' (are you missing an assembly reference?) [C:\Office\GitPersonal\Microloan\MicroloanDev\Microloan1\IdentityService\IdentityService.csproj]
+C:\Office\GitPersonal\Microloan\MicroloanDev\Microloan1\IdentityService\Services\AuthService.cs(15,17): error CS0234: The type or namespace name 'IdentityModel' does not exist in the namespace 'Microsoft' (are you missing an assembly reference?) [C:\Office\GitPersonal\Microloan\MicroloanDev\Microloan1\IdentityService\IdentityService.csproj]
+C:\Office\GitPersonal\Microloan\MicroloanDev\Microloan1\IdentityService\Data\ApplicationDbContext.cs(7,41): error CS0246: The type or namespace name 'IdentityDbContext<>' could not be found (are you missing a using directive or an assembly reference?) [C:\Office\GitPersonal\Microloan\MicroloanDev\Microloan1\IdentityService\IdentityService.csproj]
+C:\Office\GitPersonal\Microloan\MicroloanDev\Microloan1\IdentityService\Data\ApplicationDbContext.cs(9,76): error CS0311: The type 'IdentityService.Data.ApplicationDbContext' cannot be used as type parameter 'TContext' in the generic type or method 'DbContextOptions<TContext>'. There is no implicit reference conversion from 'IdentityService.Data.ApplicationDbContext' to 'Microsoft.EntityFrameworkCore.DbContext'. [C:\Office\GitPersonal\Microloan\MicroloanDev\Microloan1\IdentityService\IdentityService.csproj]
+
+Build FAILED.
+    1 Warning(s)
+    7 Error(s)
+
+Time Elapsed 00:00:04.85
