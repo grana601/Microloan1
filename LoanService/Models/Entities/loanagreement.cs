@@ -2,14 +2,13 @@ using System;
 
 namespace LoanService.Models.Entities
 {
-    public class loanagreement : baseentity<long>
+    public class loanagreement
     {
-        public long loanid { get; set; }
-        public string userid { get; set; } = null!;
-        public string agreementtext { get; set; } = null!;
-        public string documentpath { get; set; } = null!;
+        public Guid id { get; set; }
+        public Guid loanid { get; set; }
+        public string filepath { get; set; } = null!;
         public bool issigned { get; set; }
-        public DateTime? signeddate { get; set; }
-        public string envelopeid { get; set; } = null!;
+        public DateTime? signedat { get; set; }
+        public DateTime createdat { get; set; }
     }
 }
