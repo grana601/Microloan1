@@ -4,4 +4,5 @@ namespace LoanService.Interfaces;
 
 public interface ILoanService
 {
+    Task<bool> ApplyLoanAsync(ApplyLoanRequestDto dto);
 }

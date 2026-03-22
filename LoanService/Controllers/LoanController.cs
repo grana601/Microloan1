@@ -15,5 +15,16 @@ public class LoanController : ControllerBase
         _loanService = loanService;
     }
 
-   
+    [HttpPost("apply")]
+    public async Task<IActionResult> ApplyLoan([FromBody] ApplyLoanRequestDto dto)
+    {
+        if (dto == null)
+            return BadRequest("Invalid request.");
+
+        var success = await _loanService.ApplyLoanAsync(dto);
+        if (success)
+            return Ok(new { message = "Loan application submitted successfully." });
+        
+        return StatusCode(500, "An error occurred while processing the loan application.");
+    }
 }
