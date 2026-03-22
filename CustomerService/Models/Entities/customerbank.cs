@@ -1,12 +1,15 @@
+using System;
+
 namespace CustomerService.Models.Entities
 {
-    public class customerbank : baseentity<long>
+    public class customerbank
     {
-        public string userid { get; set; } = null!;
-        public string accountholder { get; set; } = null!;
+        public Guid id { get; set; }
+        public Guid customerid { get; set; }
+        public string accountholdername { get; set; } = null!;
         public string bankname { get; set; } = null!;
-        public string sortcode { get; set; } = null!;
         public string accountnumber { get; set; } = null!;
-        public bool isverified { get; set; }
+        public string sortcode { get; set; } = null!;
+        public DateTime createdat { get; set; }
     }
 }

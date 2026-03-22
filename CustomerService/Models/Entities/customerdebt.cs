@@ -1,12 +1,13 @@
+using System;
+
 namespace CustomerService.Models.Entities
 {
-    public class customerdebt : baseentity<long>
+    public class customerdebt
     {
-        public string userid { get; set; } = null!;
+        public Guid id { get; set; }
+        public Guid customerid { get; set; }
         public string debttype { get; set; } = null!;
-        public decimal outstandingamount { get; set; }
-        public decimal monthlypayment { get; set; }
-        public bool inbankruptcy { get; set; }
-        public bool hasccj { get; set; }
+        public decimal amount { get; set; }
+        public DateTime createdat { get; set; }
     }
 }
