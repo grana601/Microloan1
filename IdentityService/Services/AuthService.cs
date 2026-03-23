@@ -128,6 +128,25 @@ namespace IdentityService.Services
             return true;
         }
 
+        public async Task<bool> CheckUserAsync(string username)
+        {
+            var user = await _userManager.FindByNameAsync(username);
+            return user != null;
+        }
+
+        public async Task<bool> AssignRoleAsync(string username, string role)
+        {
+            var user = await _userManager.FindByNameAsync(username);
+            if (user == null) return false;
+
+            if (!await _userManager.IsInRoleAsync(user, role))
+            {
+                var result = await _userManager.AddToRoleAsync(user, role);
+                return result.Succeeded;
+            }
+            return true;
+        }
+
         private async Task<AuthResponseDto> GenerateAuthResponseAsync(ApplicationUser user)
         {
             var roles = await _userManager.GetRolesAsync(user);
