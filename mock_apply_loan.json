@@ -1,0 +1,33 @@
+{
+  "username": "testuser1",
+  "email": "testuser1@example.com",
+  "password": "Password123!",
+  "firstname": "John",
+  "lastname": "Doe",
+  "phone": "1234567890",
+  "address": {
+    "street": "123 Main St",
+    "city": "Springfield",
+    "state": "IL",
+    "zipcode": "62701",
+    "country": "USA"
+  },
+  "bankdetails": {
+    "bankname": "Bank of America",
+    "accountnumber": "123456789",
+    "routingnumber": "987654321"
+  },
+  "employmentdetails": {
+    "employername": "Tech Corp",
+    "jobtitle": "Software Engineer",
+    "monthlyincome": 5000,
+    "yearsemployed": 3
+  },
+  "debtinfo": {
+    "totaldebt": 10000,
+    "monthlydebtpayment": 200
+  },
+  "loanamount": 15000,
+  "termmonths": 36,
+  "purpose": "Home Improvement"
+}
