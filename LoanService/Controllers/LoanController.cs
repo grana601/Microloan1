@@ -15,6 +15,15 @@ public class LoanController : ControllerBase
         _loanService = loanService;
     }
 
+    [HttpGet("Test")]
+    public async Task<IActionResult> Test( )
+    {
+        
+            return Ok(new { message = "success" });
+         
+    }
+
+
     [HttpPost("apply")]
     public async Task<IActionResult> ApplyLoan([FromBody] ApplyLoanRequestDto dto)
     {

@@ -1,0 +1,52 @@
+version: '3.8'
+services:
+  loanservice:
+    build: .
+    ports:
+      - "5000:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Username=postgres;Password=123456;Database=microloan_loan_db
+      - RabbitMQ__HostName=rabbitmq
+      - RabbitMQ__UserName=guest
+      - RabbitMQ__Password=guest
+      - ServiceUrls__IdentityService=http://identityservice:5001
+      - ServiceUrls__CustomerService=http://customerservice:5002
+    depends_on:
+      - postgres
+      - rabbitmq
+
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: microloan_loan_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+
+  identityservice:
+    image: alpine
+    command: ["/bin/sh", "-c", "sleep 3600"]
+    ports:
+      - "5001:5001"
+
+  customerservice:
+    image: alpine
+    command: ["/bin/sh", "-c", "sleep 3600"]
+    ports:
+      - "5002:5002"
+
+volumes:
+  pgdata:

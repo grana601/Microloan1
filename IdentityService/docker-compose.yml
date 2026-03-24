@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  identityservice:
+    build: .
+    ports:
+      - "5000:80"
+    depends_on:
+      - db
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Host=db;Port=5432;Username=postgres;Password=postgres;Database=microloan_identity_db
+      - jwt__key=A_Secure_Super_Secret_Key_For_Jwt_Generation_Which_Must_Be_Long_Enough
+      - jwt__issuer=MicroloanIdentity
+      - jwt__audience=MicroloanClients
+  db:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: microloan_identity_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+volumes:
+  db_data:
