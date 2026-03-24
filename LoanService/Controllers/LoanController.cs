@@ -16,13 +16,21 @@ public class LoanController : ControllerBase
     }
 
     [HttpGet("Test")]
-    public async Task<IActionResult> Test( )
+    public async Task<IActionResult> Test()
     {
-        
-            return Ok(new { message = "success" });
-         
+        return Ok(new { message = "success" });
     }
 
+    [HttpGet("Test1")]
+    public async Task<IActionResult> Test1()
+    {
+        var data = _loanService.GetLoanListAsync();
+        return Ok(new
+        {
+            message = "success",
+            data
+        });
+    }
 
     [HttpPost("apply")]
     public async Task<IActionResult> ApplyLoan([FromBody] ApplyLoanRequestDto dto)
@@ -33,7 +41,7 @@ public class LoanController : ControllerBase
         var success = await _loanService.ApplyLoanAsync(dto);
         if (success)
             return Ok(new { message = "Loan application submitted successfully." });
-        
+
         return StatusCode(500, "An error occurred while processing the loan application.");
     }
 }

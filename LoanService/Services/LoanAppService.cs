@@ -99,5 +99,9 @@ public class LoanAppService : ILoanService
 
         return true;
     }
+    public async Task<List<loans>> GetLoanListAsync()
+    {
+        return await _dbContext.loans.ToListAsync();
+    }
 }
 
