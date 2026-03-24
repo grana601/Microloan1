@@ -4,22 +4,8 @@ services:
     build: .
     ports:
       - "5002:80"
-    depends_on:
-      - db
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__DefaultConnection=Host=db;Port=5432;Database=customerdb;Username=postgres;Password=postgres
+    env_file:
+      - ./local.env
+    # Do not start a Postgres container here — the app will connect to your local DB using the
+    # ConnectionStrings__DefaultConnection value defined in local.env (for example using host.docker.internal).
 
-  db:
-    image: postgres:15
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=customerdb
-    ports:
-      - "5432:5432"
-    volumes:
-      - db_data:/var/lib/postgresql/data
-
-volumes:
-  db_data:

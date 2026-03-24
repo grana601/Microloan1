@@ -2,31 +2,16 @@ version: '3.8'
 services:
   notificationservice:
     build: .
-    image: notificationservice:latest
     ports:
       - "5004:80"
+    env_file:
+      - ./local.env
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__DefaultConnection=Host=postgres;Database=microloan;Username=postgres;Password=postgres
       - RABBITMQ__HOSTNAME=rabbitmq
       - RABBITMQ__USERNAME=guest
       - RABBITMQ__PASSWORD=guest
     depends_on:
-      - postgres
       - rabbitmq
-
-  postgres:
-    image: postgres:15
-    restart: always
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: microloan
-    ports:
-      - "5432:5432"
-    volumes:
-      - pgdata:/var/lib/postgresql/data
-
   rabbitmq:
     image: rabbitmq:3-management
     ports:
@@ -36,5 +21,3 @@ services:
       RABBITMQ_DEFAULT_USER: guest
       RABBITMQ_DEFAULT_PASS: guest
 
-volumes:
-  pgdata:
