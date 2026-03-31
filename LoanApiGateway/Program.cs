@@ -1,23 +1,51 @@
+using LoanApiGateway.Extensions;
+using LoanApiGateway.Middleware;
+using MMLib.SwaggerForOcelot.DependencyInjection;
+using Ocelot.DependencyInjection;
+using Ocelot.Middleware;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Add Ocelot JSON config
+builder.Configuration.AddJsonFile("ocelot.json", optional: false, reloadOnChange: true);
 
+// Add services to the container.
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
+// Configure CORS
+builder.Services.AddCorsPolicy();
+
+// Configure Swagger for API Gateway API itself
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Add Ocelot
+builder.Services.AddOcelot(builder.Configuration);
+
+// Add SwaggerForOcelot integration
+builder.Services.AddSwaggerForOcelot(builder.Configuration);
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+// Error Handling Middleware
+app.UseGlobalExceptionHandler();
+
+// Use CORS
+app.UseCors("CorsPolicy");
+
+// Enable Swagger UI and aggregation
+app.UseSwaggerForOcelotUI(opt =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+    opt.PathToSwaggerGenerator = "/swagger/docs";
+});
 
-app.UseAuthorization();
+app.UseRouting();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+});
 
-app.MapControllers();
+// Configure Ocelot to run
+await app.UseOcelot();
 
 app.Run();
