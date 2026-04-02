@@ -46,4 +46,13 @@ public class LoanController : ControllerBase
 
         return StatusCode(500, "An error occurred while processing the loan application.");
     }
+    [AllowAnonymous]
+    [HttpGet("Error")]
+    public async Task<IActionResult> Error()
+    {
+        var a = 0;
+        var b = 0;
+        var c = a / b;
+        return Ok(new { message = "success" });
+    }
 }

@@ -2,8 +2,14 @@ using CustomerService.Data;
 using CustomerService.Interfaces;
 using CustomerService.Services;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
+using Microloan.Shared.Logging;
+using Microloan.Shared.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Initialize Serilog
+builder.Host.UseSerilog(SerilogExtensions.ConfigureSerilog);
 
 // Add services to the container.
 builder.Services.AddControllers();
@@ -25,6 +31,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+// Global Logging & Exception Handling
+app.UseMiddleware<CorrelationIdMiddleware>();
+app.UseMiddleware<GlobalExceptionMiddleware>();
+app.UseSerilogRequestLogging();
 
 //app.UseHttpsRedirection();
 app.UseAuthorization();

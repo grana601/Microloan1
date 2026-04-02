@@ -13,6 +13,7 @@
     </PackageReference>
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.0" />
     <PackageReference Include="RabbitMQ.Client" Version="7.2.1" />
+    <PackageReference Include="Serilog.AspNetCore" Version="8.0.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
@@ -22,5 +23,9 @@
 
   <ItemGroup>
     <None Include="C:\Office\GitPersonal\Microloan\MicroloanDev\Microloan1\LoanService\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Microloan.Shared\Microloan.Shared.csproj" />
   </ItemGroup>
 </Project>

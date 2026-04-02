@@ -7,7 +7,13 @@ using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 using System.Text;
 
+using Serilog;
+using Microloan.Shared.Logging;
+using Microloan.Shared.Middlewares;
+
 var builder = WebApplication.CreateBuilder(args);
+// Initialize Serilog
+builder.Host.UseSerilog(SerilogExtensions.ConfigureSerilog);
 
 // Add Ocelot JSON config
 builder.Configuration.AddJsonFile("ocelot.json", optional: false, reloadOnChange: true);
@@ -57,7 +63,7 @@ builder.Services.AddSwaggerForOcelot(builder.Configuration);
 var app = builder.Build();
 
 // Error Handling Middleware
-app.UseGlobalExceptionHandler();
+//app.UseGlobalExceptionHandler();
 
 // Use CORS
 app.UseCors("CorsPolicy");
@@ -70,6 +76,10 @@ app.UseSwaggerForOcelotUI(opt =>
 
 app.UseRouting();
 app.UseAuthentication();
+app.UseMiddleware<CorrelationIdMiddleware>();
+app.UseMiddleware<GlobalExceptionMiddleware>();
+app.UseSerilogRequestLogging();
+
 app.UseAuthorization();
 
 // Automatically assign ClientId for RateLimiting based on Token or IP
@@ -84,3 +94,4 @@ app.UseEndpoints(endpoints =>
 await app.UseOcelot();
 
 app.Run();
+

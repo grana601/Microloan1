@@ -7,8 +7,14 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Serilog;
+using Microloan.Shared.Logging;
+using Microloan.Shared.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Initialize Serilog
+builder.Host.UseSerilog(SerilogExtensions.ConfigureSerilog);
 
 // 1. Database Configuration
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -73,6 +79,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+// Global Logging & Exception Handling
+app.UseMiddleware<CorrelationIdMiddleware>();
+app.UseMiddleware<GlobalExceptionMiddleware>();
+app.UseSerilogRequestLogging();
 
 //app.UseHttpsRedirection();
 app.UseAuthentication();
