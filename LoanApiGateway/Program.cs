@@ -1,8 +1,11 @@
 using LoanApiGateway.Extensions;
 using LoanApiGateway.Middleware;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 using MMLib.SwaggerForOcelot.DependencyInjection;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +17,32 @@ builder.Services.AddControllers();
 
 // Configure CORS
 builder.Services.AddCorsPolicy();
+
+// 1. JWT Authentication Setup
+var jwtConfig = builder.Configuration.GetSection("jwt");
+var key = Encoding.UTF8.GetBytes(jwtConfig["key"] ?? throw new InvalidOperationException("JWT key is missing"));
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer("Bearer", options =>
+{
+    options.RequireHttpsMetadata = false; // Note: false for dev, true for prod
+    options.SaveToken = true;
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(key),
+        ValidateIssuer = true,
+        ValidIssuer = jwtConfig["issuer"],
+        ValidateAudience = true,
+        ValidAudience = jwtConfig["audience"],
+        ValidateLifetime = true,
+        ClockSkew = TimeSpan.Zero
+    };
+});
 
 // Configure Swagger for API Gateway API itself
 builder.Services.AddEndpointsApiExplorer();
@@ -40,6 +69,9 @@ app.UseSwaggerForOcelotUI(opt =>
 });
 
 app.UseRouting();
+app.UseAuthentication();
+app.UseAuthorization();
+
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();

@@ -24,7 +24,14 @@
       ],
       "UpstreamPathTemplate": "/customers/{everything}",
       "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
-      "SwaggerKey": "customers"
+      "SwaggerKey": "customers",
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RouteClaimsRequirement": {
+        "http://schemas.microsoft.com/ws/2008/06/identity/claims/role": "admin,user"
+      }
     },
     {
       "DownstreamPathTemplate": "/api/{everything}",
@@ -37,7 +44,11 @@
       ],
       "UpstreamPathTemplate": "/loans/{everything}",
       "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
-      "SwaggerKey": "loans"
+      "SwaggerKey": "loans",
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
     },
     {
       "DownstreamPathTemplate": "/api/{everything}",
@@ -50,7 +61,11 @@
       ],
       "UpstreamPathTemplate": "/notifications/{everything}",
       "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
-      "SwaggerKey": "notifications"
+      "SwaggerKey": "notifications",
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
     },
     {
       "DownstreamPathTemplate": "/api/{everything}",
@@ -63,7 +78,14 @@
       ],
       "UpstreamPathTemplate": "/payments/{everything}",
       "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
-      "SwaggerKey": "payments"
+      "SwaggerKey": "payments",
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RouteClaimsRequirement": {
+        "http://schemas.microsoft.com/ws/2008/06/identity/claims/role": "admin"
+      }
     }
   ],
   "SwaggerEndPoints": [
