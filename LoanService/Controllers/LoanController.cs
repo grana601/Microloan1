@@ -1,5 +1,6 @@
 using LoanService.Interfaces;
 using LoanService.Models.DTOs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LoanService.Controllers;
@@ -15,12 +16,13 @@ public class LoanController : ControllerBase
         _loanService = loanService;
     }
 
+    [AllowAnonymous]
     [HttpGet("Test")]
     public async Task<IActionResult> Test()
     {
         return Ok(new { message = "success" });
     }
-
+    [Authorize]
     [HttpGet("Test1")]
     public async Task<IActionResult> Test1()
     {
