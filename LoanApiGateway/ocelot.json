@@ -10,8 +10,20 @@
         }
       ],
       "UpstreamPathTemplate": "/identity/{everything}",
-      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
-      "SwaggerKey": "identity"
+      "UpstreamHttpMethod": [
+        "GET",
+        "POST",
+        "PUT",
+        "DELETE"
+      ],
+      "SwaggerKey": "identity",
+      "RateLimitOptions": {
+        "ClientWhitelist": [],
+        "EnableRateLimiting": true,
+        "Period": "1m",
+        "PeriodTimespan": 60,
+        "Limit": 5
+      }
     },
     {
       "DownstreamPathTemplate": "/api/{everything}",
@@ -23,7 +35,12 @@
         }
       ],
       "UpstreamPathTemplate": "/customers/{everything}",
-      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
+      "UpstreamHttpMethod": [
+        "GET",
+        "POST",
+        "PUT",
+        "DELETE"
+      ],
       "SwaggerKey": "customers",
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
@@ -31,6 +48,13 @@
       },
       "RouteClaimsRequirement": {
         "http://schemas.microsoft.com/ws/2008/06/identity/claims/role": "admin,user"
+      },
+      "RateLimitOptions": {
+        "ClientWhitelist": [],
+        "EnableRateLimiting": true,
+        "Period": "1m",
+        "PeriodTimespan": 60,
+        "Limit": 60
       }
     },
     {
@@ -43,11 +67,23 @@
         }
       ],
       "UpstreamPathTemplate": "/loans/{everything}",
-      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
+      "UpstreamHttpMethod": [
+        "GET",
+        "POST",
+        "PUT",
+        "DELETE"
+      ],
       "SwaggerKey": "loans",
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
         "AllowedScopes": []
+      },
+      "RateLimitOptions": {
+        "ClientWhitelist": [],
+        "EnableRateLimiting": true,
+        "Period": "1m",
+        "PeriodTimespan": 60,
+        "Limit": 30
       }
     },
     {
@@ -60,11 +96,23 @@
         }
       ],
       "UpstreamPathTemplate": "/notifications/{everything}",
-      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
+      "UpstreamHttpMethod": [
+        "GET",
+        "POST",
+        "PUT",
+        "DELETE"
+      ],
       "SwaggerKey": "notifications",
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
         "AllowedScopes": []
+      },
+      "RateLimitOptions": {
+        "ClientWhitelist": [],
+        "EnableRateLimiting": true,
+        "Period": "1m",
+        "PeriodTimespan": 60,
+        "Limit": 100
       }
     },
     {
@@ -77,7 +125,12 @@
         }
       ],
       "UpstreamPathTemplate": "/payments/{everything}",
-      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
+      "UpstreamHttpMethod": [
+        "GET",
+        "POST",
+        "PUT",
+        "DELETE"
+      ],
       "SwaggerKey": "payments",
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
@@ -85,6 +138,13 @@
       },
       "RouteClaimsRequirement": {
         "http://schemas.microsoft.com/ws/2008/06/identity/claims/role": "admin"
+      },
+      "RateLimitOptions": {
+        "ClientWhitelist": [],
+        "EnableRateLimiting": true,
+        "Period": "1m",
+        "PeriodTimespan": 60,
+        "Limit": 10
       }
     }
   ],
@@ -141,6 +201,12 @@
     }
   ],
   "GlobalConfiguration": {
-    "BaseUrl": "http://localhost:5000"
+    "BaseUrl": "http://localhost:5000",
+    "RateLimitOptions": {
+      "DisableRateLimitHeaders": false,
+      "QuotaExceededMessage": "Rate limit exceeded! Please try again later.",
+      "HttpStatusCode": 429,
+      "ClientIdHeader": "ClientId"
+    }
   }
 }

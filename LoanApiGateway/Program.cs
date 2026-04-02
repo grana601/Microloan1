@@ -72,6 +72,9 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
+// Automatically assign ClientId for RateLimiting based on Token or IP
+app.UseMiddleware<ClientIdMiddleware>();
+
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();
